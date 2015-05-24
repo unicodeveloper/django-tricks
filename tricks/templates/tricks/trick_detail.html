@@ -1,9 +1,12 @@
 {% extends 'tricks/base.html' %}
 
 {% block content %}
-    <div>
-          <h1><{{ trick.title }}</a></h1>
-          <p>{{ trick.description|linebreaks }}</p>
-          <p><b>Code</b> : {{ trick.code }}</p>
-    </div>
+  <div>
+  <a class="btn btn-default" href="{% url 'trick_edit' trick_slug=trick.slug %}">
+    <span class="fa fa-pencil"></span>
+  </a>
+  <h1>{{ trick.title }}</a></h1>
+  <p>{{ trick.description|linebreaks }}</p>
+  <p><b>Code</b> : {{ trick.code }}</p>
+  </div>
 {% endblock content %}

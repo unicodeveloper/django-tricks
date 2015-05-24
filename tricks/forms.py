@@ -1,9 +1,8 @@
 from django import forms
+from .models import Trick
 
-from .models import Post
-
-class PostForm(forms.ModelForm):
+class TrickForm(forms.ModelForm):
 
     class Meta:
-        model = Post
-        fields = ('title', 'text',)
+        model = Trick
+        fields = ('title', 'description', 'code')
