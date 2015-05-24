@@ -3,4 +3,5 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.index),
+    url(r'^tricks/(?P<trick_slug>[\w|\W]+)/$', views.trick_detail)
 ]

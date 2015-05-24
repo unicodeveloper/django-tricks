@@ -1,11 +1,9 @@
 {% extends 'tricks/base.html' %}
 
 {% block content %}
-  {% for trick in tricks %}
     <div>
-          <h1><a href="{% url 'tricks.views.trick_detail' trick_slug=trick.slug %}">{{ trick.title }}</a></h1>
+          <h1><{{ trick.title }}</a></h1>
           <p>{{ trick.description|linebreaks }}</p>
           <p><b>Code</b> : {{ trick.code }}</p>
     </div>
-  {% endfor %}
 {% endblock content %}
