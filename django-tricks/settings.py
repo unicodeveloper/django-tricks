@@ -53,10 +53,12 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'django-tricks.urls'
 
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [ BASE_DIR +'/templates' ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
