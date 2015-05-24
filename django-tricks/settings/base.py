@@ -11,13 +11,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'y#+hwn!94=(fh03)9!bc8sp^2_1fg#(3p&64$$h!72mf@!rr8h'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['django-tricks.herokuapp.com']
-
-DATABASES['default'] =  dj_database_url.config()
-
 
 # Application definition
 
@@ -65,23 +58,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'django-tricks.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'django-tricks',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost'
-    }
-}
-
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Africa/Lagos'
