@@ -2,6 +2,7 @@
 import os
 import sys
 import envvars
+envvars.load()
 
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", envvars.get('DJANGO_SETTINGS_MODULE'))
