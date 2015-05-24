@@ -25,7 +25,7 @@ SECRET_KEY = 'y#+hwn!94=(fh03)9!bc8sp^2_1fg#(3p&64$$h!72mf@!rr8h'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['django-tricks.herokuapp.com']
 
 
 # Application definition
@@ -93,7 +93,7 @@ DATABASES = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Africa/Lagos'
 
 USE_I18N = True
 
