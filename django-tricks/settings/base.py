@@ -1,6 +1,8 @@
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 import dj_database_url
+import envvars
+envvars.load()
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -21,7 +23,52 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social.apps.django_app.default',
     'tricks'
+)
+
+# Authentication backends Setting
+AUTHENTICATION_BACKENDS = (
+# For Facebook Authentication
+'social.backends.facebook.FacebookOAuth2',
+
+# For Twitter Authentication
+'social.backends.twitter.TwitterOAuth',
+
+# For Google Authentication
+'social.backends.google.GoogleOpenId',
+'social.backends.google.GoogleOAuth2',
+'social.backends.google.GoogleOAuth',
+
+# Default Django Auth Backends
+'django.contrib.auth.backends.ModelBackend',
+)
+
+# Google Auth Details
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = envvars.get('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = envvars.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
+
+# Twitter Auth Details
+SOCIAL_AUTH_TWITTER_SECRET = envvars.get('SOCIAL_AUTH_TWITTER_SECRET')
+SOCIAL_AUTH_TWITTER_KEY = envvars.get('SOCIAL_AUTH_TWITTER_KEY')
+
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = envvars.get('SOCIAL_AUTH_LOGIN_REDIRECT_URL')
+SOCIAL_AUTH_LOGIN_ERROR_URL = envvars.get('SOCIAL_AUTH_LOGIN_ERROR_URL')
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    # Default Template context processors
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.request',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'django.core.context_processors.tz',
+    'django.contrib.messages.context_processors.messages',
+
+    # Setting of Template Context Processors for Social Auth
+    'social.apps.django_app.context_processors.backends',
+    'social.apps.django_app.context_processors.login_redirect',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -69,6 +116,4 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
-
 
