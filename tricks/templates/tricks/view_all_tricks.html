@@ -1,13 +1,44 @@
 {% extends 'tricks/base.html' %}
 
-
-
 {% block content %}
+<div class="row push-down">
+          <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+            <h1 class="page-title">Recent tricks</h1>
+          </div>
+
+          <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+            <form method="GET" action="http://laravel-tricks.com/search" accept-charset="UTF-8">
+              <input type="text" name="q" class="search-box form-control" placeholder="Search..." value="">
+              <input style="display:none;" type="submit" value="search">
+            </form>
+          </div>
+</div>
+
+<div class="row js-trick-container">
+
   {% for trick in tricks %}
-    <div>
-          <h1><a href="{% url 'tricks.views.trick_detail' trick_slug=trick.slug %}">{{ trick.title }}</a></h1>
-          <p>{{ trick.description|linebreaks }}</p>
-          <p><b>Code</b> : {{ trick.code }}</p>
+    <div href="#" class="trick-card col-lg-4 col-md-6 col-sm-6 col-xs-12">
+            <div class="trick-card-inner js-goto-trick" data-slug="{% trick.slug $}">
+              <a class="trick-card-title" href="{% url 'tricks.views.trick_detail' trick_slug=trick.slug %}">
+                {{ trick.title }}
+              </a>
+              <div class="trick-card-stats trick-card-by">by <b>
+                <a href="user/{{ trick.user.username }}">{{ trick.user.username }}</a></b>
+              </div>
+              <div class="trick-card-stats clearfix">
+                <div class="trick-card-timeago">Submitted 1 week ago in
+                  <a href="/categories/configuration">Configuration</a>
+                </div>
+                <div class="trick-card-stat-block"><span class="fa fa-eye"></span> 210</div>
+                <div class="trick-card-stat-block text-right">
+                  <span class="fa fa-heart"></span> 1
+                </div>
+              </div>
+              <div class="trick-card-tags clearfix">
+                  <a href="http://laravel-tricks.com/tags/50" class="tag" title="5.0">5.0</a>
+              </div>
+            </div>
     </div>
   {% endfor %}
+</div>
 {% endblock content %}

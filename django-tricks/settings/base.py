@@ -11,7 +11,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'y#+hwn!94=(fh03)9!bc8sp^2_1fg#(3p&64$$h!72mf@!rr8h'
+SECRET_KEY = envvars.get('SECRET_KEY')
 
 
 # Application definition
@@ -32,6 +32,9 @@ AUTHENTICATION_BACKENDS = (
 # For Facebook Authentication
 'social.backends.facebook.FacebookOAuth2',
 
+# For github Authentication
+'social.backends.github.GithubOAuth2',
+
 # For Twitter Authentication
 'social.backends.twitter.TwitterOAuth',
 
@@ -44,7 +47,9 @@ AUTHENTICATION_BACKENDS = (
 'django.contrib.auth.backends.ModelBackend',
 )
 
-# Google Auth Details
+AUTH_PROFILE_MODULE = 'tricks.Profile'
+
+REDIRECT_URIs = ["http://localhost:8000/complete/google-oauth2/","http://127.0.0.1:8000/complete/twitter/","http://127.0.0.1:8000/complete/google-oauth2/", "http://django-tricks.herokuapp.com/complete/google-oauth2/"]
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = envvars.get('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = envvars.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
 
@@ -52,8 +57,29 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = envvars.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
 SOCIAL_AUTH_TWITTER_SECRET = envvars.get('SOCIAL_AUTH_TWITTER_SECRET')
 SOCIAL_AUTH_TWITTER_KEY = envvars.get('SOCIAL_AUTH_TWITTER_KEY')
 
+# Github Auth Details
+SOCIAL_AUTH_GITHUB_KEY = envvars.get('SOCIAL_AUTH_GITHUB_KEY')
+SOCIAL_AUTH_GITHUB_SECRET = envvars.get('SOCIAL_AUTH_GITHUB_SECRET')
+
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = envvars.get('SOCIAL_AUTH_LOGIN_REDIRECT_URL')
 SOCIAL_AUTH_LOGIN_ERROR_URL = envvars.get('SOCIAL_AUTH_LOGIN_ERROR_URL')
+
+
+
+SOCIAL_AUTH_PIPELINE = (
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.social_user',
+    'social.pipeline.user.get_username',
+    'social.pipeline.mail.mail_validation',
+    'social.pipeline.user.create_user',
+    'social.pipeline.social_auth.associate_user',
+    'social.pipeline.social_auth.load_extra_data',
+    'social.pipeline.user.user_details',
+    'tricks.pipeline.get_profile_picture'
+)
+
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     # Default Template context processors

@@ -1,4 +1,6 @@
 from django.shortcuts import render,  get_object_or_404
+from django.contrib import auth
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from .models import Trick
 from .forms import TrickForm
@@ -7,6 +9,19 @@ from .forms import TrickForm
 def index(request):
   tricks = Trick.objects.all()
   return render(request, 'tricks/view_all_tricks.html', {'tricks': tricks})
+
+def about(request):
+  return render(request, 'tricks/about.html', {})
+
+def register(request):
+  return render(request, 'tricks/register.html', {})
+
+def loggin(request):
+  return render(request, 'tricks/login.html', {})
+
+def logout(request):
+  auth.logout(request)
+  return HttpResponseRedirect("/")
 
 def trick_detail(request, trick_slug):
   trick = get_object_or_404(Trick, slug=trick_slug)

@@ -40,11 +40,6 @@ class Tag(models.Model):
 
 class Profile(models.Model):
   user = models.ForeignKey('auth.User')
-  username = models.CharField(max_length=200)
-  name = models.CharField(max_length=200)
-  email = models.CharField(max_length=200)
-  first_name = models.CharField(max_length=200, null=True)
-  last_name = models.CharField(max_length=200, null=True)
   location = models.CharField(max_length=200,null=True)
   description = models.TextField(null=True)
   image_url = models.TextField()

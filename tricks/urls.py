@@ -6,5 +6,9 @@ urlpatterns = [
     url(r'^tricks/(?P<trick_slug>[\w|\W]+)/$', views.trick_detail),
     url(r'^user/tricks/new/$', views.trick_new, name='trick_new'),
     url(r'^user/tricks/(?P<trick_slug>[\w|\W]+)/edit/$', views.trick_edit, name='trick_edit'),
+    url(r'^about', views.about),
+    url(r'^register', views.register),
+    url(r'^loggin', views.loggin),
+    url(r'^logout', views.logout)
 
 ]

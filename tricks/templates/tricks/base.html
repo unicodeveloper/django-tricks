@@ -15,37 +15,101 @@
   <link rel="stylesheet" href="{% static 'css/bootstrap-theme.css' %}" media="screen">
   <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="http://laravel-tricks.com/css/styles.min.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
   <script src="assets/js/html5shiv.js"></script>
   <script src="assets/js/respond.min.js"></script>
   <![endif]-->
 </head>
-
 <body>
-  <li>
-      <a href="{% url 'social:begin' 'google-oauth2' %}">
-        <i class="fa fa-user"></i> Login with Google+
-      </a>
-  </li>
-  <li>
-      <a href="{% url 'social:begin' 'twitter' %}">
-        <i class="fa fa-user"></i> Login with Twitter
-      </a>
-  </li>
-   <div>
-      <a href="{% url 'tricks.views.trick_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
-      <h1><a href="/">DJANGO TIPS AND TRICKS</a></h1>
-   </div>
+<div id="wrap">
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".header-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
 
-
-   <div class="content container">
-        <div class="row">
-            <div class="col-md-8">
-            {% block content %}
-            {% endblock %}
-            </div>
+        <div class="navbar-brand" href="http://laravel-tricks.com">
+          <h2><a href="/">DJANGO TRICKS</a></h2>
         </div>
-   </div>
+      </div>
+
+      <div class="collapse navbar-collapse header-collapse">
+
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="/">Browse</a></li>
+          <li><a href="/categories">Categories</a></li>
+          <li><a href="/tags">Tags</a></li>
+          {%if user.is_authenticated %}
+            <li><a href="{% url 'tricks.views.trick_new' %}">Create New</a></li>
+          {% endif %}
+        </ul>
+
+        <div class="navbar-right hidden-xs">
+          {%if user.is_authenticated %}
+            <ul class="nav">
+              <span> Hello {{ user.get_full_name|default:user.username }}</span>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle btn btn-primary" data-toggle="dropdown">
+                <img src="https://secure.gravatar.com/avatar/1097492785caf9ffeebffeb624202d8f?s=100&amp;r=g&amp;d=mm" width="26px" class="user-avatar-mini"> Profile
+                {{ user.usernames }}
+                <img src="{{ user.get_profile_picture.image_url }}" width="70" height="70">
+                <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li class="active"><a href="/user">My tricks</a></li>
+                  <li class=""><a href="/user/favorites">My Favorites</a></li>
+                  <li class=""><a href="/user/settings">Settings</a></li>
+                  <li><a href="/logout">Logout</a></li>
+                </ul>
+              </li>
+            </ul>
+          {%else%}
+            <a href="/register" class="btn btn-primary">Register</a>
+            <a href="/loggin" class="btn btn-primary">Login</a>
+         {%endif%}
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="container">
+   {% block content %}
+
+   {% endblock content %}
+  </div>
+</div>
+
+<div id="footer">
+  <div class="container">
+    <p class="text-muted credit">Website built with
+     <a href="https://www.djangoproject.com/">Django</a> by
+     <a target="_blank" href="http://twitter.com/unicodeveloper">Prosper Otemuyiwa</a> |
+     <a href="/about">About</a>
+     <span class="pull-right">
+        <a target="_blank" href="http://twitter.com/unicodeveloper" title="Follow updates">
+        <i class="fa fa-twitter fa-lg"></i>
+        </a>
+        |
+        <a target="_blank" href="https://github.com/busayo/django-tricks" title="Get the source of this site">
+        <i class="fa fa-github fa-lg"></i></a>
+    </span>
+   </p>
+  </div>
+</div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="http://laravel-tricks.com/js/vendor/masonry.pkgd.min.js"></script>
+<script>
+$(function(){$container=$(".js-trick-container");$container.masonry({gutter:0,itemSelector:".trick-card",columnWidth:".trick-card"});$(".js-goto-trick a").click(function(e){e.stopPropagation()});$(".js-goto-trick").click(function(e){e.preventDefault();var t="http://laravel-tricks.com/tricks";var n=$(this).data("slug");window.location=t+"/"+n})})
+</script>
 </body>
 </html>
